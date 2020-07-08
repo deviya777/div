@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+    <head>    
+     <meta name="viewport" charset="UTF-8" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+     <title>Page Title</title>
+     <style>
+         *{margin:0;padding:0;}body{overflow:hidden;}
+
+         body{
+    margin:0;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    display:none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+body.show{
+    display: flex;
+    animation:0.5s linear reveal;
+}
+*{
+    scroll-behavior: smooth;
+    box-sizing: border-box;
+    max-width: 100vw;
+    overflow-x:hidden ;
+}
+.fullScreen{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: url("https://takenusername.000webhostapp.com/bday/assets/images/birthdaycake24.com_15ef235fe20d6d.gif");
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+}
+#indicator{
+    color:#fff;
+    text-decoration: none;
+    font-weight: bolder;
+    width:50px;
+    height: 50px;
+    opacity: 0.6;
+    border:20px double #fff;
+    border-top-color:transparent;
+    border-left-color:transparent;
+    font-size: 1.5rem;
+    border-radius: 4px;
+    animation: 2s ease-in-out alternate hover infinite;
+}
+#time{
+    padding:25px;
+    margin:auto;
+    max-width: 80%;
+    background: rgba(225,225,225,0.85);
+    border-radius: 10px;
+    font-size: 1.2rem;
+    text-align: center;
+    font-weight: bolder;
+}
+#form{
+    text-align: center;
+    padding:20px 50px;
+
+}
+#form >input {
+    display: block;
+    padding:6px 10px;
+    margin:20px auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border:none;
+    outline:none;
+    border-radius:10px;
+    transition:0.3s linear;
+    box-shadow:-2px -2px 4px #555,2px 2px 4px #fff; 
+}
+#form >input:focus{
+    box-shadow:2px 2px 4px #555,-2px -2px 4px #fff; 
+}
+#form > textarea{
+    border:none;
+    outline:none;
+    display: block;
+    border-radius:10px;
+    width:80%;
+    max-width: 450px;
+    margin:20px auto;
+    padding:15px;
+    transition:0.3s linear;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-shadow:-2px -2px 4px #555,2px 2px 4px #fff; 
+}
+
+#form >textarea:focus{
+    box-shadow:2px 2px 4px #555,-2px -2px 4px #fff; 
+}
+#form > button{
+    border:none;
+    margin:auto;
+    margin-top:30px;
+    display: block;
+    font-size:1.1rem;
+    color:#fff;
+    background: linear-gradient(to top right,salmon,hotpink);
+    padding:10px 15px;
+    border-radius:10px;
+    outline:none;
+    margin-top:20px;
+    transition: 0.1s linear;
+    box-shadow: 0px 0px 10px salmon,0px 0px 20px hotpink;
+}
+#form > button:active{
+    transform: scale(0.9);
+    box-shadow: 0px 0px 0px salmon,0px 0px 0px hotpink;
+}
+
+#totalMsg{
+    padding-top:2rem;
+    font-size:22px;
+}
+
+#cards{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding:10px;
+    max-width: 100%;
+}
+
+.card{
+    color:#ccc;
+    padding: 30px 35px;
+    background: rgba(0,0,0,0.60);
+    border-radius: 10px;
+    min-width:250px;
+    max-width:500px;
+    display: inline-block;
+    margin:30px;
+    font-size:1.05rem;
+    line-height: 1.3rem;
+    box-shadow:0px 0px 15px rgb(255, 0, 140);
+}
+.card > .name{
+    color:#aaa;
+    font-weight: bolder;
+    margin-bottom:20px;
+    font-size:0.9rem;
+}
+#loader{
+    position:fixed;
+    top:50%;
+    left:50%;
+    border-radius: 10px;
+    text-align: center;
+    background: #fff;
+    width:200px;
+    height:200px;
+    transform: translate(-50%,-50%);
+    font-weight: bolder;
+}
+.hide{
+    display: none !important;
+}
+#loader::before{
+    content: '';
+    display: block;
+    position: absolute;
+    top:50%;
+    left:50%;
+    width:20px;
+    height:20px;
+    border-radius: 100%;
+    border:60px solid salmon;
+    border-right-color:transparent ;
+    animation:1s cubic-bezier(0.68, -0.55, 0.265, 1.55) spin infinite;
+}
+
+#popups{
+    position: fixed;
+    top:0px;
+    right:0px;
+    padding:10px;
+    z-index: 1000;
+    min-width:150px;
+    max-width:250px;
+}
+#popups>.success,
+#popups>.failed{
+    width:100%;
+    padding:6px 10px;
+    margin:6px auto;
+    background: #fff;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: bold;
+    word-wrap: break-word;
+    animation:1.5s 0.5s linear reverse reveal;
+}
+.success{
+    color:rgb(0, 172, 129);
+}
+.failed{
+    color:rgb(223, 22, 0);
+}
+
+@keyframes spin{
+    0%{
+        
+        transform: translate(-50%,calc(-50% + 10px)) rotate(0deg);
+    }
+    100%{
+        
+        transform: translate(-50%,calc(-50% + 10px)) rotate(360deg);
+    }
+}
+@keyframes reveal{
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+
+@keyframes hover{
+    0%{
+        transform:rotate(45deg) translate(-90%,-90%);
+    }
+    100%{
+        transform:rotate(45deg) translate(0%,0%);
+    }
+}
+#footer{
+    background: #371f1a;
+    color:#fff;
+    text-align: center;
+    font-size:1.1rem;
+    padding:15px 10px;
+}
+</style>
+</head>
+   <body onselectstart="return false" onpaste="return false;" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" oncontextmenu="return false">     
+  <h1 style="align-items: center;"> 💙Happy Brithday Mosii maa<h1>
+      
+    <img src="Maa.jpeg"></img>
+    <img src="https://www.funimada.com/assets/images/cards/big/bday-452.gif" alt="Birthday">
+    <img src="Mosiiii.jpeg"></img>
+    <script src=index.js></script>
+    </div> </div>
+
+    
+    <div class="fullScreen" id="form" style="background-image: url('https://takenusername.000webhostapp.com/bday/assets/images/birthday-2611564_1920.jpg');background-color:rgba(225,225,225,0.90);background-blend-mode: overlay;">
+            <h2>Send Your Wishes</h2>
+            <input type="text" id="name" placeholder="Your Name" />
+            <textarea id="message" placeholder="Write Your birthday Wish Here" ></textarea>
+            <button id="send">Send &RightTriangleBar;</button><h2 style="background-color:skyblue;"> At last On your birthday, I wish you a peaceful and lovely life ahead, You’ve seen me happy, you’ve seen me sad, you’ve seen me reasonable, you’ve seen me mad.I may not have always said it, but you all of my 4 lovely mothers are most beloved for me. May you always be healthy and happy. I wish you a wonderful year and a very happy birthday.
+                </h2>
+            </p>Made with 💙 by Divyanshi Sharma :)</p>
+            </h1>
+    </div>
+    </div>>
+    
+   </body>
+</html>
